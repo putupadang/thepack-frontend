@@ -1,4 +1,5 @@
 - install modules `npm install`
+- copy `.env.example` rename the file to `.env`
 - run the app by using `npm start`
 - access the app `http://localhost:3007`
 - create account by access on `http://localhost:3007/register` page
