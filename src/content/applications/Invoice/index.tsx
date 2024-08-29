@@ -39,11 +39,12 @@ const MyTablePage = () => {
     setIsShowDetail(true);
   };
 
-  const handleEdit = async (editedItem: any) => {
+  const handleEdit = async (editedItem: any, items: any) => {
     const params = {
-      amount: editedItem.amount,
+      discount: editedItem.discount,
       clientName: editedItem.name,
-      clientAddress: editedItem.address
+      clientAddress: editedItem.address,
+      items: items
     };
     const res = await fetcher(
       'PUT',
@@ -70,11 +71,12 @@ const MyTablePage = () => {
     }
   };
 
-  const handleAdd = async (newItem: any) => {
+  const handleAdd = async (newItem: any, items: any) => {
     const params = {
-      amount: newItem.amount,
+      discount: newItem.discount,
       clientName: newItem.name,
-      clientAddress: newItem.address
+      clientAddress: newItem.address,
+      items: items
     };
     const res = await fetcher(
       'POST',
@@ -129,9 +131,11 @@ const MyTablePage = () => {
               <TableHead>
                 <TableRow>
                   <TableCell>Invoice No.</TableCell>
-                  <TableCell>Amount</TableCell>
                   <TableCell>Name</TableCell>
                   <TableCell>Address</TableCell>
+                  <TableCell>Total Items</TableCell>
+                  <TableCell>Total Amount</TableCell>
+                  <TableCell>Discount</TableCell>
                   <TableCell align="right">Actions</TableCell>
                 </TableRow>
               </TableHead>
@@ -139,9 +143,11 @@ const MyTablePage = () => {
                 {rows.map((row: any) => (
                   <TableRow key={row._id}>
                     <TableCell>{row.number}</TableCell>
-                    <TableCell>{priceFormatter(row.amount)}</TableCell>
                     <TableCell>{row.clientName}</TableCell>
                     <TableCell>{row.clientAddress}</TableCell>
+                    <TableCell>{row.items.length}</TableCell>
+                    <TableCell>{priceFormatter(row.total)}</TableCell>
+                    <TableCell>{priceFormatter(row.discount)}</TableCell>
                     <TableCell align="right">
                       <Tooltip title="View">
                         <IconButton onClick={() => handleView(row)}>
